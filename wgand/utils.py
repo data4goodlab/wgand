@@ -67,12 +67,12 @@ def eval_weight_predictor(gdf, weight_clf, cv=10):
     return scores.mean()
     
 def get_weight_predictor(gdf, weight_clf):
-
     X_train = gdf.copy()
     y_train = X_train.pop("interaction")
     # n_estimators=100,n_jobs=-1,max_features=10
     # weight_clf = classifier(**clf_params)
     weight_clf.fit(list(X_train["features"]), y_train)
+    setattr(weight_clf, "is_fitted_", True)
     return weight_clf
     
 
