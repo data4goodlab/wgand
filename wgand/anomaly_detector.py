@@ -9,6 +9,9 @@ import pyod.models.combination as comb
 
 
 class AnomalyDetector(BaseEstimator):
+    """
+    Node outlier detector
+    """
     
     def __init__(self, g, weight_clf, meta_clf, embedding_model=None, feature_selection=False, n_components=0):
         super(AnomalyDetector, self).__init__(g, weight_clf, meta_clf, embedding_model, feature_selection, n_components)
@@ -47,28 +50,38 @@ class AnomalyDetector(BaseEstimator):
 
     
     def predict_feature_score(self, nodes):
+        """
+        Predict the feature score for a list of nodes
+        Parameters
+        ----------
+        nodes : list
+            List of nodes to score
+        Returns
+        -------
+        scores : np.array
+            Array of scores for the nodes
+        """
         check_is_fitted(self.weight_clf)
-
-        # res = []
         X = self.get_node_training_data(nodes)
-        # for feature in df_agg.columns.values[:-3]:
-        #     temp = {}
-        #     df_agg = df_agg.sort_values(feature,ascending=False)
-        #     temp["feature"] = feature
-        #     temp["auc"] = roc_auc_score(df_agg["disease"],df_agg[feature])
-        #     res.append(temp)
-        # auc_single = pd.DataFrame(res)
-        # auc_single = auc_single.sort_values("auc")  
 
-        # scores = df_agg[auc_single.tail(7).index].values.astype(float)
-        # scores = df_agg.iloc[:,:-3].values.astype(float)
         scores = sigmoid(X)
 
         return comb.average(scores).reshape(-1, 1)
 
     def predict_node_proba(self, nodes):
+        """
+        Predict the anomaly score for a list of nodes
+        Parameters
+        ----------
+        nodes : list
+            List of nodes to score
+        Returns
+        -------
+        scores : np.array
+            Array of scores for the nodes
+        """
         check_is_fitted(self.node_clf)
-        X, gene_names = self.get_node_training_data(nodes, True)
+        X = self.get_node_training_data(nodes)
 
         X_pca = self.pca_tran.transform(X)
     
