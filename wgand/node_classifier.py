@@ -3,12 +3,12 @@ from sklearn.metrics import make_scorer, classification_report
 from sklearn.model_selection import cross_validate, cross_val_predict
 from sklearn.model_selection import StratifiedKFold
 from wgand.utils import precision_at_k
-from wgand.base_estimator import BaseEstimator
+from wgand.base_detector import BaseDetector
 from sklearn.utils.validation import check_is_fitted
 from sklearn.exceptions import NotFittedError
 
 
-class NodeClassifier(BaseEstimator):
+class NodeClassifier(BaseDetector):
     
     def __init__(self, g, weight_clf, meta_clf, embedding_model=None, feature_selection=False, n_components=0):
         super(NodeClassifier, self).__init__(g, weight_clf, meta_clf, embedding_model, feature_selection, n_components)

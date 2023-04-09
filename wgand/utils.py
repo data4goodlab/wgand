@@ -44,8 +44,6 @@ def load_chaperones_graph(graph_path, disease_tissue,tissue_disease_file_name, d
     return g
             
     
-# df["features"]
-
 def get_gdf(g, features=None):
     g_num = nx.convert_node_labels_to_integers(g, first_label=0, ordering='sorted', label_attribute="node_name")
     gdf = nx.convert_matrix.to_pandas_edgelist(g_num)
