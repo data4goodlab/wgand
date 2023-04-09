@@ -1,7 +1,4 @@
 import networkx as nx
-from pathlib import Path
-import pandas as pd
-from tqdm import tqdm_notebook as tqdm
 from sklearn.model_selection import cross_val_score
 import numpy as np
 
