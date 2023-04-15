@@ -3,6 +3,26 @@ from sklearn.model_selection import cross_val_score
 import numpy as np
 
 
+def fit_embedding_model(g, emb_model):
+    """
+    Fit embedding model on a graph.
+    Parameters
+    ----------
+    g : networkx.Graph
+        Graph.
+    emb_model : karateclub.node_embedding
+        Embedding model.
+    Returns
+    -------
+    emb_model : karateclub.node_embedding
+        Fitted embedding model.
+    """
+    for v, u in g.edges:
+        g[v][u].pop("weight")
+
+    emb_model.fit(g)
+    return emb_model
+    
 
 def load_tissue_graph_by_matching(tissue_path, tissue_name, disease_info):
     """
