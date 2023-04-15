@@ -1,5 +1,6 @@
 import networkx as nx
 from sklearn.model_selection import cross_val_score
+from sklearn.metrics import roc_auc_score
 import numpy as np
 
 
@@ -23,6 +24,29 @@ def fit_embedding_model(g, emb_model):
     emb_model.fit(g)
     return emb_model
     
+def get_metrics(y, probs):
+    """
+    Get evaluation metrics.
+    Parameters
+    ----------
+    y : list
+        List of labels.
+    probs : list
+        List of probabilities.
+    Returns
+    -------
+    metrics_dict : dict
+        Dictionary of evaluation metrics.
+    """
+    metrics_dict = {}
+    metrics_dict["auc"] = roc_auc_score(y, probs)
+    metrics_dict["p@1"] = precision_at_k(y, probs,1)
+    metrics_dict["p@3"] = precision_at_k(y, probs,3)
+    metrics_dict["p@10"] = precision_at_k(y, probs,10)
+    metrics_dict["p@20"] = precision_at_k(y, probs,20)
+    metrics_dict["p@anom"] = precision_at_k(y, probs,np.sum(y))
+    metrics_dict["anom"] = np.sum(y)
+    return metrics_dict
 
 def load_tissue_graph_by_matching(tissue_path, tissue_name, disease_info):
     """
