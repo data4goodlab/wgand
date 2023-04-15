@@ -1,6 +1,6 @@
 import networkx as nx
 import numpy as np
-from wgand.utils import get_gdf, get_weight_predictor, eval_weight_predictor, sigmoid
+from wgand.utils import get_gdf, get_weight_predictor, eval_weight_predictor, sigmoid, fit_embedding_model
 from sklearn.decomposition import PCA
 import pandas as pd
 from sklearn.utils.validation import check_is_fitted
@@ -53,9 +53,10 @@ class BaseDetector(object):
         """
         self.g = g
         self.g_num = nx.convert_node_labels_to_integers(g, first_label=0, ordering='sorted', label_attribute="node_name")
-        self.embedding_model = embedding_model
+        self.embedding_model = None
         self.gdf = get_gdf(self.g)
         if embedding_model:
+            self.embedding_model = fit_embedding_model(self.g_num, embedding_model)
             self.gdf["features"] = self.gdf.progress_apply(lambda x: np.concatenate([embedding_model.get_embedding()[int(x["source"])],embedding_model.get_embedding()[int(x["target"])]]), axis=1)
         self.weight_clf = weight_clf
         self.node_clf = meta_clf
@@ -142,8 +143,6 @@ class BaseDetector(object):
         -------
         X : numpy array
             Node features
-        y : numpy array
-            Node labels
         """
         df_agg = self.get_node_features()
         # df_agg = df_agg.sample(frac=1, random_state=2)
