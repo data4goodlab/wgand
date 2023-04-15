@@ -7,6 +7,7 @@ from sklearn.utils.validation import check_is_fitted
 from sklearn.exceptions import NotFittedError
 import pyod.models.combination as comb 
 from sklearn.model_selection import StratifiedKFold
+from tqdm.autonotebook import tqdm
 
 
 class BaseDetector(object):
@@ -56,6 +57,7 @@ class BaseDetector(object):
         self.embedding_model = None
         self.gdf = get_gdf(self.g)
         if embedding_model:
+            tqdm.pandas()
             self.embedding_model = fit_embedding_model(self.g_num, embedding_model)
             self.gdf["features"] = self.gdf.progress_apply(lambda x: np.concatenate([embedding_model.get_embedding()[int(x["source"])],embedding_model.get_embedding()[int(x["target"])]]), axis=1)
         self.weight_clf = weight_clf
