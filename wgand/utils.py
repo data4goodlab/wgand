@@ -2,7 +2,7 @@ import networkx as nx
 from sklearn.model_selection import cross_val_score
 from sklearn.metrics import roc_auc_score
 import numpy as np
-
+import pandas as pd
 
 def fit_embedding_model(g, emb_model):
     """
@@ -47,6 +47,48 @@ def get_metrics(y, probs):
     metrics_dict["p@anom"] = precision_at_k(y, probs,np.sum(y))
     metrics_dict["anom"] = np.sum(y)
     return metrics_dict
+
+
+def get_disease_info_df(csv_path):
+    """
+    Get disease information DataFrame.
+    Parameters
+    ----------
+    csv_path : str
+        Path to csv file.
+    Returns
+    -------
+    disease_info : pandas.DataFrame
+        DataFrame of disease information.
+    """
+    disease_info = pd.read_csv(csv_path)
+    disease_info["Disease_name"] = disease_info["Disease_name"].str.strip("{")
+    disease_info["Disease_name"] = disease_info["Disease_name"].str.strip("}")
+    disease_info["Disease_name"] = disease_info["Disease_name"].str.strip("?")
+    disease_info["Tissue"] = disease_info["Tissue"].str.replace("-", " ")
+    return disease_info
+
+def get_tissue_mapping_df(csv_path,disease_info):
+    """
+    Get tissue mapping DataFrame that maps between the graph files and the disease info file.
+    Parameters
+    ----------
+    csv_path : str
+        Path to csv file.
+    disease_info : pandas.DataFrame
+        DataFrame of disease information.
+    Returns
+    -------
+    tissue_mapping : pandas.DataFrame
+        DataFrame of tissue mapping.
+    """
+    tissue_mapping = pd.read_csv(csv_path)
+    tissue_mapping = tissue_mapping.dropna()
+    tissue_mapping = tissue_mapping.merge(pd.DataFrame(disease_info.drop_duplicates(subset=["Tissue","Gene_ID"]).groupby("Tissue").size()), left_on="tissue_name_disease_file", right_on="Tissue", how="left")
+    tissue_mapping = tissue_mapping.rename(columns={0:"disease_nodes_num"})
+    tissue_mapping = tissue_mapping[tissue_mapping["disease_nodes_num"]>20]
+    tissue_mapping = tissue_mapping[~tissue_mapping.tissue_name_network_file.isin(["Breast Mammary Tissue", "Minor Salivary Gland"])]
+    return tissue_mapping
 
 def load_tissue_graph_by_matching(tissue_path, tissue_name, disease_info):
     """
