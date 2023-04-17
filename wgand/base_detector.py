@@ -1,6 +1,6 @@
 import networkx as nx
 import numpy as np
-from wgand.utils import get_gdf, get_weight_predictor, eval_weight_predictor, sigmoid, fit_embedding_model
+from .utils import get_gdf, get_weight_predictor, eval_weight_predictor, sigmoid, fit_embedding_model
 from sklearn.decomposition import PCA
 import pandas as pd
 from sklearn.utils.validation import check_is_fitted

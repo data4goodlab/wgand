@@ -2,8 +2,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import make_scorer, classification_report
 from sklearn.model_selection import cross_validate, cross_val_predict
 from sklearn.model_selection import StratifiedKFold
-from wgand.utils import precision_at_k
-from wgand.base_detector import BaseDetector
+from .utils import precision_at_k
+from .base_detector import BaseDetector
 from sklearn.utils.validation import check_is_fitted
 from sklearn.exceptions import NotFittedError
 
