@@ -56,7 +56,7 @@ class PcaAnomalyDetector(BaseDetector):
             PCA model
         """
         super(PcaAnomalyDetector, self).__init__(g, weight_clf, meta_clf, embedding_model, feature_selection, n_components)
-        self.pca_tran = PCA(n_components=2, random_state=2)
+        self.pca_tran = PCA(n_components=4, random_state=2)
         
     def fit(self, X=None):
         """
@@ -75,7 +75,7 @@ class PcaAnomalyDetector(BaseDetector):
             self.pca_tran.fit(all_data)
 
 
-    def predict_score(self, X, transform=True):
+    def predict_score(self, X, transform=True, method="component"):
         """
         Predict the anomaly score for a list of nodes
         Parameters
@@ -95,15 +95,19 @@ class PcaAnomalyDetector(BaseDetector):
  
         if transform:
             X = self.get_node_training_data(X)
-        X_pca = self.pca_tran.transform(X)
-    
-        # scaler = MinMaxScaler().fit(X_pca[:,1:])
-        # probs = scaler.transform(X_pca[:,1:]).ravel().clip(0, 1).reshape(-1, 1)
-        return X_pca[:,1].reshape(-1, 1)
+        if method == "component":
+            X_pca = self.pca_tran.transform(X)
+            score = X_pca[:,1]
+        if method == "inverse":
+            X_inverse = self.pca_tran.inverse_transform(X)
+            score = (X - X_inverse) ** 2
+
+
+        return score.reshape(-1, 1)
 
   
 
-    def predict_proba(self, nodes, transform=True):
+    def predict_proba(self, nodes, transform=True, method="component"):
         """
         Predict the probability of a node being outlier.
         Parameters
@@ -116,12 +120,12 @@ class PcaAnomalyDetector(BaseDetector):
             Array of scores for the nodes
         """
         check_is_fitted(self.weight_clf)
-        scores = self.predict_score(nodes, transform)  
+        scores = self.predict_score(nodes, transform, method)  
         return sigmoid(scores)
 
 
 
-    def predict(self, nodes):
+    def predict(self, nodes, method="component"):
         """
         Predict the label of a node being outlier.
         Parameters
@@ -134,7 +138,7 @@ class PcaAnomalyDetector(BaseDetector):
             Array of scores for the nodes
         """
         self.check_is_fitted()
-        scores = self.predict_proba(nodes)
+        scores = self.predict_proba(nodes, method)
         return (scores > 0.5).astype(int)
     
     def check_is_fitted(self):
