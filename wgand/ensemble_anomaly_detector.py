@@ -9,7 +9,7 @@ from sklearn.preprocessing import MinMaxScaler
 import pyod.models.combination as comb 
 
 
-class AnomalyDetector(PcaAnomalyDetector):
+class EnsembleAnomalyDetector(PcaAnomalyDetector):
     """
     Node outlier detector
     """
@@ -56,7 +56,7 @@ class AnomalyDetector(PcaAnomalyDetector):
         pca_tran : sklearn.decomposition.PCA
             PCA model
         """
-        super(AnomalyDetector, self).__init__(g, weight_clf, meta_clf, embedding_model, feature_selection, n_components)
+        super(EnsembleAnomalyDetector, self).__init__(g, weight_clf, meta_clf, embedding_model, feature_selection, n_components)
         
     def fit(self, X):
         """

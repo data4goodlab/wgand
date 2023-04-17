@@ -12,7 +12,7 @@ from tqdm.autonotebook import tqdm
 
 class BaseDetector(object):
     
-    def __init__(self, g, weight_clf, meta_clf, embedding_model=None, feature_selection=None, n_components=0):
+    def __init__(self, g, weight_clf, meta_clf=None, embedding_model=None, feature_selection=None, n_components=0):
         """
         Base class for node outlier detectors
         Parameters
