@@ -25,9 +25,9 @@ def test_ensemble_anomaly_detector():
     """
     G = generate_random_weighted_graph()
     model = EnsembleAnomalyDetector(
-        base_estimator=RandomForestRegressor(),
-        ensemble_estimator=IForest(),
-        embedding_estimator=RandNE(),
+        weight_clf=RandomForestRegressor(),
+        meta_clf=IForest(),
+        embedding_model=RandNE(),
     )
     model.fit(G)
     scores = model.predict(list(G.nodes()))
