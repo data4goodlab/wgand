@@ -1,0 +1,45 @@
+﻿tissue_name_network_file,tissue_name_disease_file
+Adipose Subcutaneous,Adipose Subcutaneous
+Adipose Visceral Omentum,Adipose Visceral
+Artery Aorta,Artery Aorta
+Artery Coronary,Artery Coronary
+Artery Tibial,
+Brain Amygdala,
+Brain Anterior cingulate cortex BA24,
+Brain Caudate basal ganglia,Brain Basal ganglia Caudate nucleus
+Brain Cerebellar Hemisphere,
+Brain Cerebellum,Brain Cerebellum
+Brain Cortex,Brain Cortex
+Brain Frontal Cortex BA9,Brain Cortex Frontal
+Brain Hippocampus,
+Brain Hypothalamus,Brain Hypothalamus
+Brain Nucleus accumbens basal ganglia,Brain Basal ganglia Nucleus accumbens
+Brain Putamen basal ganglia,Brain Basal ganglia Putamen
+Brain Spinal cord cervical c 1,Spinal cord
+Brain Substantia nigra,Brain Basal ganglia Substantia nigra
+Breast Mammary Tissue,Mammary gland
+Cells EBV transformed lymphocytes,
+Cells Transformed fibroblasts,
+Colon Sigmoid,Digestive system Colon
+Esophagus Gastroesophageal Junction,Digestive system Esophagus Gastroesophageal junction
+Esophagus Mucosa,Digestive system Esophagus Mucosa
+Esophagus Muscularis,
+Heart Atrial Appendage,Heart Atrium
+Heart Left Ventricle,Heart Ventricle
+Liver,Liver
+Lung,Respiratory system Lung
+Minor Salivary Gland,Mammary gland
+Muscle Skeletal,Skeletal muscle
+Nerve Tibial,Peripheral nerve
+Ovary,Ovary
+Pituitary,Pituitary
+Prostate,
+Skin Not Sun Exposed Suprapubic,Skin
+Skin Sun Exposed Lower leg,Skin
+Stomach,
+Testis,Testis
+Thyroid,Thyroid
+Uterus,Uterus
+Vagina,
+Whole Blood,Blood and bone marrow
+Whole Brain,Brain
