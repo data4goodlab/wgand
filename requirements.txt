@@ -1,5 +1,8 @@
 pandas>=1.1
+combo
+tqdm>=4.56
 pyod>=1.0
 scikit-learn>= 0.24
 numpy>=1.19
 networkx>=2.5
+karateclub>=1.0

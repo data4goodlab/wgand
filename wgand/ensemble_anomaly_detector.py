@@ -107,7 +107,7 @@ class EnsembleAnomalyDetector(PcaAnomalyDetector):
         scores : np.array
             Array of scores for the nodes
         """
-        return self.predict_node_proba(nodes)[:,1]>0.5
+        return self.predict_node_proba(nodes)>0.5
 
     def predict_node_proba(self, nodes):
         """

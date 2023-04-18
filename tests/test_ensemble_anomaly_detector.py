@@ -24,12 +24,13 @@ def test_ensemble_anomaly_detector():
     Test the EnsembleAnomalyDetector class.
     """
     G = generate_random_weighted_graph()
-    model = EnsembleAnomalyDetector(
+    model = EnsembleAnomalyDetector(G,
         weight_clf=RandomForestRegressor(),
         meta_clf=IForest(),
         embedding_model=RandNE(),
     )
-    model.fit(G)
-    scores = model.predict(list(G.nodes()))
+    nodes = list(G.nodes())
+    model.fit(nodes)
+    scores = model.predict(nodes)
     assert scores.shape[0] == G.number_of_nodes()
     
