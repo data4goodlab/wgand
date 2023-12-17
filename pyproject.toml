@@ -1,0 +1,23 @@
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "wgand"
+authors = [{name = "Dima Kagan", email = "kagandi@post.bgu.ac.il"}]
+readme = "README.md"
+license = {file = "LICENSE"}
+classifiers = ["License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)"]
+dynamic = ["version", "description"]
+requires-python = ">=3.6"
+dependencies = ["pandas>=1.1",
+                "combo",
+                "tqdm>=4.56",
+                "pyod>=1.0",
+                "scikit-learn>= 0.24",
+                "numpy>=1.19",
+                "networkx>=2.5",
+                "karateclub>=1.0"]
+
+[project.urls]
+Home = "https://github.com/data4goodlab/wgand"
