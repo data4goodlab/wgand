@@ -10,7 +10,10 @@ $ cd wgand
 $ pip install -r requirements.txt
 $ python setup.py install
 ```
-
+To run the notebook also install: 
+```bash
+$ pip install xgboost lightgbm
+```
 ## Usage
 WGAND (Ensemble)
 ```python
