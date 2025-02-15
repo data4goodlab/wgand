@@ -77,5 +77,4 @@ print(get_metrics(y, probs))
 ## Citation
 
 ## License
-GNU General Public License v3.0
-
+CC0 1.0 Universal
