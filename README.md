@@ -1,4 +1,4 @@
-# WGAND - Weighte Graph Anomalus Node Detection
+# WGAND - Weighted Graph Anomalous Node Detection
 
 This repository contains the official implementaion of the paper "Weighted Graph Anomaly Node Detection" by Dima Kagan, Micahel Fire, Juma Jubran, and Esti Yeger-Lotem.
 The code is implentaed as a python library with the the paper experiments executed inside jupyter notebooks.
